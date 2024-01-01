@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.xianyue.common</groupId>
+    <artifactId>common-util</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>xianyue-dependencies</module>
+        <module>xianyue-core</module>
+        <module>xianyue-entity</module>
+        <module>xianyue-exception</module>
+    </modules>
+
+    <properties>
+        <!-- 项目编码格式 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- maven来源、目标java版本 -->
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <java.version>21</java.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <!-- deploy插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.1.1</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <!-- aliyun镜像仓库地址 -->
+        <repository>
+            <id>aliyun</id>
+            <name>aliyun</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <!-- Maven中央仓库地址 -->
+        <repository>
+            <id>mvnrepository</id>
+            <name>mvnrepository</name>
+            <url>https://mvnrepository.com</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <!--远程仓库的唯一标识-->
+            <id>maven-snapshots</id>
+            <name>nexus</name>
+            <url>http://localhost:8081/repository/maven-snapshots/</url>
+            <!--如何处理远程仓库里发布版本的下载-->
+            <releases>
+                <enabled>true</enabled>
+                <!--更新频率 always一直 daily 默认日 interval 间隔时间分钟 never从不-->
+                <updatePolicy>always</updatePolicy>
+                <!--校验失败策略  ignore fail warn-->
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+            <!--用于定位和排序构建的仓库布局类型 default 和legacy -->
+            <layout>default</layout>
+        </repository>
+    </distributionManagement>
+</project>
