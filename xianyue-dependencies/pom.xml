@@ -36,6 +36,10 @@
         <!-- validation工具包版本 -->
         <validation.version>1.1.0.Final</validation.version>
         <hibernate-validator.version>5.2.0.Final</hibernate-validator.version>
+
+        <xianyue.core.version>1.0.0-SNAPSHOT</xianyue.core.version>
+        <xianyue.entity.version>1.0.0-SNAPSHOT</xianyue.entity.version>
+        <xianyue.exception.version>1.0.0-SNAPSHOT</xianyue.exception.version>
     </properties>
 
     <dependencyManagement>
@@ -102,6 +106,21 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>${hibernate-validator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xianyue.common</groupId>
+                <artifactId>xianyue-core</artifactId>
+                <version>${xianyue.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xianyue.common</groupId>
+                <artifactId>xianyue-entity</artifactId>
+                <version>${xianyue.entity.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xianyue.common</groupId>
+                <artifactId>xianyue-exception</artifactId>
+                <version>${xianyue.exception.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
