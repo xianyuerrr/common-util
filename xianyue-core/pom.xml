@@ -11,8 +11,7 @@
     </parent>
 
     <artifactId>xianyue-core</artifactId>
-    <groupId>com.xianyue.common</groupId>
-    <version>${project.version}</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <dependencies>
         <!-- lombok，自动插入到编辑器和构建工具中，增强java的性能 -->

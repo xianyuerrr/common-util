@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>xianyue-entity</artifactId>
+    <version>${project.version}</version>
 
     <dependencies>
         <dependency>

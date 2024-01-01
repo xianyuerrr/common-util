@@ -11,9 +11,7 @@
     </parent>
 
     <artifactId>xianyue-exception</artifactId>
-    <groupId>com.xianyue.common</groupId>
     <version>${project.version}</version>
-
 
     <dependencies>
         <dependency>

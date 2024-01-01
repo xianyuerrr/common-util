@@ -17,6 +17,8 @@
     </modules>
 
     <properties>
+        <!-- 项目版本号 -->
+        <project.version>1.0.0-SNAPSHOT</project.version>
         <!-- 项目编码格式 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- maven来源、目标java版本 -->
