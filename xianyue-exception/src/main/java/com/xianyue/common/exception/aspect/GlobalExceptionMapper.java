@@ -23,8 +23,8 @@ public class GlobalExceptionMapper extends ResponseEntityExceptionHandler {
     private ExceptionProcessor exceptionProcessor;
 
     @ExceptionHandler(value = {Exception.class})
-    protected ResponseEntity<Object> handleConflict(RuntimeException exception, WebRequest request) {
-        ApiResponse response = exceptionProcessor.handleException(exception);
+    protected <T> ResponseEntity<Object> handleConflict(RuntimeException exception, WebRequest request) {
+        ApiResponse<T> response = exceptionProcessor.handleException(exception);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

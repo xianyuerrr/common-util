@@ -20,7 +20,7 @@ public class ValidationExceptionHandler extends AbstractExceptionHandler {
     }
 
     @Override
-    public ApiResponse handleException(Exception exception) {
+    public <T> ApiResponse<T> handleException(Exception exception) {
         return null;
     }
 

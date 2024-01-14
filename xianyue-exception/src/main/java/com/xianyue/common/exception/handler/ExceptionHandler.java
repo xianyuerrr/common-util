@@ -12,7 +12,7 @@ import com.xianyue.common.core.response.ApiResponse;
 public interface ExceptionHandler {
     boolean isSupport(Exception exception);
 
-    ApiResponse handleException(Exception exception);
+    <T> ApiResponse<T> handleException(Exception exception);
 
     int order();
 }

@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -32,15 +33,15 @@ public class ExceptionProcessor implements ApplicationContextAware {
         }
     }
 
-    public ApiResponse handleException(Exception exception) {
+    public <T> ApiResponse<T> handleException(Exception exception) {
         if (Objects.isNull(exceptionHandlerList)) {
-            return new ApiResponse();
+            return ApiResponse.fail(Collections.emptyList());
         }
         ExceptionHandler exceptionHandler;
         Iterator<ExceptionHandler> iterator = exceptionHandlerList.iterator();
         do {
             if (!iterator.hasNext()) {
-                return new ApiResponse();
+                return ApiResponse.fail(Collections.emptyList());
             }
             exceptionHandler = iterator.next();
         } while (!exceptionHandler.isSupport(exception));
