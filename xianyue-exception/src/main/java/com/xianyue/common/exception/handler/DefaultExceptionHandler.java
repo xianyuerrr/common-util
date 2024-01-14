@@ -1,9 +1,11 @@
 package com.xianyue.common.exception.handler;
 
 import com.xianyue.common.core.response.ApiResponse;
+import com.xianyue.common.core.response.Error;
 import com.xianyue.common.exception.CommonException;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.Objects;
 
 /**
@@ -14,21 +16,24 @@ import java.util.Objects;
  * @Date: 2023/6/17 13:38
  */
 @Component
-public class DefaultExceptionHandler extends AbstractExceptionHandler {
+public class DefaultExceptionHandler<T> extends AbstractExceptionHandler {
     @Override
     public boolean isSupport(Exception exception) {
         return true;
     }
 
     @Override
-    public ApiResponse handleException(Exception exception) {
-        ApiResponse response = null;
+    public ApiResponse<T> handleException(Exception exception) {
+        ApiResponse<T> response = null;
         if (exception instanceof CommonException commonException) {
             if (Objects.isNull(commonException.getData())) {
                 response = ApiResponse.fail(commonException.getErrorList());
             } else {
-                response = ApiResponse.partialSuccess(commonException.getData(), commonException.getErrorList());
+                response = ApiResponse.partialSuccess((T) commonException.getData(), commonException.getErrorList());
             }
+        } else {
+            Error error = new Error(this.defaultErrCode, null, exception.getMessage(), null);
+            response = ApiResponse.fail(Collections.singletonList(error));
         }
         this.logException(exception);
         return response;
