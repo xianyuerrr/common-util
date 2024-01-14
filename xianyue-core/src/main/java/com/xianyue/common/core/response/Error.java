@@ -27,9 +27,4 @@ public class Error {
      * 错误信息
      */
     private String errorMsg;
-
-    /**
-     * 错误上下文参数
-     */
-    private Object[] args;
 }

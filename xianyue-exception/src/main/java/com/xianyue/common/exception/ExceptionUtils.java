@@ -29,7 +29,7 @@ public class ExceptionUtils {
 
     public static Error getError(String errorCode, String sourceId, Object... args) {
         String errMsg = MessageFormatter.format(getErrMsgFormat(errorCode), args).getMessage();
-        return new Error(errorCode, sourceId, errMsg, args);
+        return new Error(errorCode, sourceId, errMsg);
     }
 
     public int getHttpResponseCode(Exception exception) {
