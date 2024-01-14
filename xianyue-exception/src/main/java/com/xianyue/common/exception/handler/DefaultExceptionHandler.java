@@ -3,6 +3,7 @@ package com.xianyue.common.exception.handler;
 import com.xianyue.common.core.response.ApiResponse;
 import com.xianyue.common.core.response.Error;
 import com.xianyue.common.exception.CommonException;
+import com.xianyue.common.exception.ExceptionUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -32,7 +33,7 @@ public class DefaultExceptionHandler<T> extends AbstractExceptionHandler {
                 response = ApiResponse.partialSuccess((T) commonException.getData(), commonException.getErrorList());
             }
         } else {
-            Error error = new Error(this.defaultErrCode, null, exception.getMessage(), null);
+            Error error = new Error(ExceptionUtils.getDefaultErrorCode(), null, exception.getMessage());
             response = ApiResponse.fail(Collections.singletonList(error));
         }
         this.logException(exception);
