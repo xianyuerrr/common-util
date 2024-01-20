@@ -17,27 +17,12 @@ public class XianYueContext {
     /**
      * 用户Id
      */
-    private Long userId;
+    private String userId;
 
     /**
      * 应用Id
      */
     private String appId;
-
-    /**
-     * token
-     */
-    private String token;
-
-    /**
-     * token生成时间
-     */
-    private Long createTime;
-
-    /**
-     * 基础url
-     */
-    private String baseUrl;
 
     /**
      * 链路追踪Id

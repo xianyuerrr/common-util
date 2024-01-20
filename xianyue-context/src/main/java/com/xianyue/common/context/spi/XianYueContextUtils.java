@@ -1,6 +1,6 @@
 package com.xianyue.common.context.spi;
 
-import com.xianyue.common.context.ContextManager;
+import com.xianyue.common.context.manager.ContextManager;
 import com.xianyue.common.context.vo.XianYueContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -19,7 +19,7 @@ import java.util.Objects;
 public class XianYueContextUtils implements ApplicationContextAware {
     private static ContextManager contextManager;
 
-    public static XianYueContext getContext() {
+    public static XianYueContext getCurContext() {
         return Objects.requireNonNull(contextManager.getCurrentContext());
     }
 

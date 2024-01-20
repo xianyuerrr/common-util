@@ -1,27 +1,30 @@
 package com.xianyue.common.auth.vo;
 
 
+import lombok.Getter;
+
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
+@Getter
 public class AuthToken {
     private static final long DEFAULT_EXPIRED_TIME_INTERVAL = 60 * 1000;
 
     private final String token;
-    private final long creatTime;
+    private final long createTime;
     private long expiredTimeInterval = DEFAULT_EXPIRED_TIME_INTERVAL;
 
 
-    public AuthToken(String token, long creatTime) {
+    public AuthToken(String token, long createTime) {
         this.token = token;
-        this.creatTime = creatTime;
+        this.createTime = createTime;
     }
 
-    public AuthToken(String token, long creatTime, long expiredTimeInterval) {
+    public AuthToken(String token, long createTime, long expiredTimeInterval) {
         this.token = token;
-        this.creatTime = creatTime;
+        this.createTime = createTime;
         this.expiredTimeInterval = expiredTimeInterval;
     }
 
@@ -63,7 +66,7 @@ public class AuthToken {
 
     public boolean isExpired() {
         long time = System.currentTimeMillis();
-        return !(time >= creatTime && time <= creatTime + expiredTimeInterval);
+        return !(time >= createTime && time <= createTime + expiredTimeInterval);
     }
 
     public boolean match(AuthToken authToken) {
@@ -74,7 +77,7 @@ public class AuthToken {
     public String toString() {
         return "AuthToken{" +
                 "token='" + token + '\'' +
-                ", creatTime=" + creatTime +
+                ", createTime=" + createTime +
                 ", expiredTimeInterval=" + expiredTimeInterval +
                 '}';
     }

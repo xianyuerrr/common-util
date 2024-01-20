@@ -1,6 +1,7 @@
-package com.xianyue.common.context;
+package com.xianyue.common.context.interceptor;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
+import com.xianyue.common.context.manager.ContextManager;
 import com.xianyue.common.context.vo.XianYueContext;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class ContextManagerImpl implements ContextManager {
     /**
      * 应用程序上下文，使用 ThreadLocal 存储，TransmittableThreadLocal 适配线程池，以解决普通 ThreadLocal 只能在线程创建时传递的问题·
-     * https://juejin.cn/post/7010976461326647310
+     * <a href="https://juejin.cn/post/7010976461326647310">...</a>
      */
     private static final TransmittableThreadLocal<XianYueContext> TTL = new TransmittableThreadLocal<>();
 

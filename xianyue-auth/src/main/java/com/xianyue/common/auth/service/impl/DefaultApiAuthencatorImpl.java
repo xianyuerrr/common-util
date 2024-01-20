@@ -6,9 +6,13 @@ import com.xianyue.common.auth.service.helper.CredentialStorage;
 import com.xianyue.common.auth.vo.ApiRequest;
 import com.xianyue.common.auth.vo.AuthToken;
 import com.xianyue.common.exception.CommonException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
+@Slf4j
 @Component
 public class DefaultApiAuthencatorImpl implements ApiAuthencator {
     @Autowired
@@ -23,6 +27,7 @@ public class DefaultApiAuthencatorImpl implements ApiAuthencator {
     @Override
     public void auth(ApiRequest apiRequest) {
         String token = apiRequest.token();
+        // TODO 接管创建时间，1.存在cookie，2. redis
         long timestamp = apiRequest.timestamp();
 
         AuthToken clientAuthToken = new AuthToken(token, timestamp);
@@ -31,13 +36,32 @@ public class DefaultApiAuthencatorImpl implements ApiAuthencator {
         }
 
         String baseUrl = apiRequest.baseUrl();
-        String appId = apiRequest.appId();
+        String account = apiRequest.account();
 
-        String password = credentialStorage.getPasswordByAppId(appId);
-        AuthToken serverAuthToken = AuthToken.creat(baseUrl, appId, password, timestamp);
+        String password = credentialStorage.getPasswordByAppId(account);
+        AuthToken serverAuthToken = AuthToken.creat(baseUrl, account, password, timestamp);
         if (!serverAuthToken.match(clientAuthToken)) {
             throw new CommonException(ErrorCode.VERIFICATION_FAIL.getErrorCode());
         }
 
+    }
+
+    @Override
+    public AuthToken login(String account, String password, String baseUrl) {
+        String realPassword = credentialStorage.getPasswordByAppId(account);
+        if (realPassword == null) {
+            throw new CommonException("");
+        }
+        if (!realPassword.equals(password)) {
+            throw new CommonException("");
+        }
+        return AuthToken.creat(baseUrl, account, password, new Date().getTime());
+    }
+
+    @Override
+    public AuthToken reAuth(String account, String baseUrl) {
+        String password = credentialStorage.getPasswordByAppId(account);
+        long timestamp = new Date().getTime();
+        return AuthToken.creat(baseUrl, account, password, timestamp);
     }
 }

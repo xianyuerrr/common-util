@@ -8,10 +8,10 @@ import java.util.Map;
  *
  * @param baseUrl   基础url
  * @param token     token
- * @param appId     应用id
+ * @param account   应用id
  * @param timestamp 时间戳
  */
-public record ApiRequest(String baseUrl, String token, String appId, long timestamp) {
+public record ApiRequest(String baseUrl, String token, String account, long timestamp) {
     public static ApiRequest creatFromFullUrl(String url) {
         if (url == null || "".equals(url)) {
             return null;
@@ -27,7 +27,7 @@ public record ApiRequest(String baseUrl, String token, String appId, long timest
             params.put(key, val);
         }
         String token = params.getOrDefault("token", "");
-        String appId = params.getOrDefault("appId", "");
+        String appId = params.getOrDefault("account", "");
         long timestamp = Long.parseLong(params.getOrDefault("timestamp", ""));
         return new ApiRequest(baseUrl, token, appId, timestamp);
     }
@@ -37,7 +37,7 @@ public record ApiRequest(String baseUrl, String token, String appId, long timest
         return "ApiRequest{" +
                 "baseUrl='" + baseUrl + '\'' +
                 ", token='" + token + '\'' +
-                ", appId='" + appId + '\'' +
+                ", account='" + account + '\'' +
                 ", timestamp=" + timestamp +
                 '}';
     }

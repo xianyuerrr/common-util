@@ -15,6 +15,7 @@
         <module>xianyue-entity</module>
         <module>xianyue-exception</module>
         <module>xianyue-auth</module>
+        <module>xianyue-context</module>
     </modules>
 
     <properties>
