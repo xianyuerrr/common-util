@@ -6,16 +6,17 @@ import com.xianyue.common.auth.service.helper.CredentialStorage;
 import com.xianyue.common.auth.vo.ApiRequest;
 import com.xianyue.common.auth.vo.AuthToken;
 import com.xianyue.common.exception.CommonException;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+/**
+ * 默认Api校验器
+ */
 @Slf4j
-@Component
+@AllArgsConstructor
 public class DefaultApiAuthencatorImpl implements ApiAuthencator {
-    @Autowired
     private CredentialStorage credentialStorage;
 
     @Override
@@ -38,7 +39,7 @@ public class DefaultApiAuthencatorImpl implements ApiAuthencator {
         String baseUrl = apiRequest.baseUrl();
         String account = apiRequest.account();
 
-        String password = credentialStorage.getPasswordByAppId(account);
+        String password = credentialStorage.getPasswordByAccount(account);
         AuthToken serverAuthToken = AuthToken.creat(baseUrl, account, password, timestamp);
         if (!serverAuthToken.match(clientAuthToken)) {
             throw new CommonException(ErrorCode.VERIFICATION_FAIL.getErrorCode());
@@ -48,7 +49,7 @@ public class DefaultApiAuthencatorImpl implements ApiAuthencator {
 
     @Override
     public AuthToken login(String account, String password, String baseUrl) {
-        String realPassword = credentialStorage.getPasswordByAppId(account);
+        String realPassword = credentialStorage.getPasswordByAccount(account);
         if (realPassword == null) {
             throw new CommonException("");
         }
@@ -60,7 +61,7 @@ public class DefaultApiAuthencatorImpl implements ApiAuthencator {
 
     @Override
     public AuthToken reAuth(String account, String baseUrl) {
-        String password = credentialStorage.getPasswordByAppId(account);
+        String password = credentialStorage.getPasswordByAccount(account);
         long timestamp = new Date().getTime();
         return AuthToken.creat(baseUrl, account, password, timestamp);
     }

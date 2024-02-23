@@ -6,10 +6,9 @@ import com.xianyue.common.auth.vo.ApiRequest;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.util.Arrays;
@@ -25,9 +24,8 @@ import java.util.stream.Collectors;
  * @Date: 2024/1/14 19:55
  */
 @Slf4j
-@Component
+@AllArgsConstructor
 public class AuthInterceptor implements HandlerInterceptor {
-    @Autowired
     private ApiAuthencator apiAuthencator;
 
     @Override

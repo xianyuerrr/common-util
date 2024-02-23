@@ -1,5 +1,11 @@
 # 过滤器和拦截器
 
+## 鉴权模块
+
+### 架构
+
+![xianyue-auth.png](xianyue-auth.png)
+
 ## 过滤器（Filter）
 
 **tomcat-embed-core**提供，拦截的是URL，提供系统级别的过滤，能过滤所有的web请求，这一点，是拦截器无法做到的。

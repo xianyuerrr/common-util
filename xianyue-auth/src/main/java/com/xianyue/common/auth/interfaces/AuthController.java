@@ -7,25 +7,25 @@ import com.xianyue.common.core.response.ApiResponse;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * 鉴权模块对外暴露的服务
+ *
  * @Title: AuthController
  * @Package: com.xianyue.common.auth.interfaces
  * @Description: 权限对外接口，提供登录、登出功能
  * @Author: xianyue
  * @Date: 2024/1/16 23:57
  */
-@RestController
+@AllArgsConstructor
 @RequestMapping("/auth")
 public class AuthController {
-    @Autowired
     private ApiAuthencator apiAuthencator;
 
     @PostMapping("/login")
