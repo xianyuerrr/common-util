@@ -1,25 +1,24 @@
 package com.xianyue.common.context.config;
 
 import com.xianyue.common.context.interceptor.ContextInterceptor;
+import com.xianyue.common.context.interceptor.ContextManagerImpl;
+import com.xianyue.common.context.manager.ContextManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.util.List;
 
 /**
  * @Title: WebMvcConfigurer
  * @Package: com.xianyue.common.context
- * @Description:
+ * @Description: 上下文配置类
  * @Author: xianyue
  * @Date: 2024/1/14 21:31
  */
 @Configuration
 public class XianYueContextConfigurer implements WebMvcConfigurer {
-    @Autowired
-    private ContextInterceptor contextInterceptor;
+    private static ContextInterceptor contextInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -28,10 +27,16 @@ public class XianYueContextConfigurer implements WebMvcConfigurer {
         // 多个拦截器可以设置order顺序，值越小，preHandle越先执行，postHandle和afterCompletion越后执行
         // order默认的值是0，如果只添加一个拦截器，可以不显示设置order的值
         registry.addInterceptor(contextInterceptor).addPathPatterns("/**")
-                .excludePathPatterns("/base/index").order(0);
+                .excludePathPatterns("/base/index").order(1);
     }
 
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+    @Bean
+    public ContextManager contextManager() {
+        return new ContextManagerImpl();
+    }
+
+    @Autowired
+    public void contextInterceptor(ContextManager contextManager) {
+        contextInterceptor = new ContextInterceptor((ContextManagerImpl) contextManager);
     }
 }

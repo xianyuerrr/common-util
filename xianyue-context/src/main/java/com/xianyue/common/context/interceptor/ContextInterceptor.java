@@ -3,10 +3,9 @@ package com.xianyue.common.context.interceptor;
 import com.xianyue.common.context.vo.XianYueContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 /**
@@ -17,12 +16,11 @@ import org.springframework.web.servlet.HandlerInterceptor;
  * @Date: 2024/1/14 19:55
  */
 @Slf4j
-@Component
+@AllArgsConstructor
 public class ContextInterceptor implements HandlerInterceptor {
     /**
      * 上下文管理类
      */
-    @Autowired
     private ContextManagerImpl xianYueContextManager;
 
     @Override
@@ -42,7 +40,8 @@ public class ContextInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex) throws Exception {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
+                                @Nullable Exception ex) {
         xianYueContextManager.removeCurrent();
     }
 }

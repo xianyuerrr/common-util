@@ -35,7 +35,7 @@ import java.util.List;
  * @Date: 2024/1/14 21:31
  */
 @Configuration
-@ConditionalOnProperty(prefix = "spring.xianyue.auth", value = "on", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "spring.xianyue.auth.on", matchIfMissing = true)
 public class AuthConfigurer implements WebMvcConfigurer {
     private static AuthInterceptor authInterceptor;
 
@@ -46,7 +46,7 @@ public class AuthConfigurer implements WebMvcConfigurer {
      * 拦截除登录服务、自定义排除服务之外的所有请求
      * 注：鉴权相关的服务不可自定义
      *
-     * @param registry
+     * @param registry 拦截器注册器
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
