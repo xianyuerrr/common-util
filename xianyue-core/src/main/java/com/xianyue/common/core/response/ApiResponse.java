@@ -1,6 +1,5 @@
 package com.xianyue.common.core.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.Objects;
  * @Date: 2023/6/17 11:13
  */
 @Data
-@AllArgsConstructor
 public class ApiResponse<T> {
     private ReturnStatus status;
 
@@ -21,8 +19,10 @@ public class ApiResponse<T> {
 
     private List<Error> errors;
 
-    public ApiResponse(ReturnStatus status, T data) {
-        this(status, data, null);
+    private ApiResponse(ReturnStatus status, T data, List<Error> errors) {
+        this.status = status;
+        this.data = data;
+        this.errors = errors;
     }
 
     /**
@@ -33,7 +33,7 @@ public class ApiResponse<T> {
      * @return Api通用返回
      */
     public static <T> ApiResponse<T> success(T data) {
-        return new ApiResponse(ReturnStatus.SUCCESS, data);
+        return new ApiResponse<T>(ReturnStatus.SUCCESS, data, null);
     }
 
     /**
